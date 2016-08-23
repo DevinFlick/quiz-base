@@ -10,7 +10,7 @@ var quizSchema = new Schema({
     // type: mongoose.Schema.Types.ObjectId,
     // ref: 'Question'
     type: String,
-    required: true
+    required: true,
   },
   tag: {
     type: String,
@@ -21,10 +21,17 @@ var quizSchema = new Schema({
     required: true,
   },
   updated: {
-    type Date,
+    type: Date,
     required: true,
   },
 });
+
+//explore
+quizSchema.pre('findOneAndUpdate', function(){
+  console.log('updating!');
+  this.update({}, {$set: {updated: new Date()}});
+});
+//explore
 
 var Quiz = mongoose.model('Quiz', quizSchema);
 module.exports = Quiz;

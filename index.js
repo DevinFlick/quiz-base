@@ -1,9 +1,9 @@
-var express = require('exppress');
+var express = require('express');
 var server = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var quizRouter = require('./js/routes/quiz.js');
-var questionRouter = require('./js/routes/question.js');
+var quizRouter = require('./public/js/routes/quizzes.js');
+var questionRouter = require('./public/js/routes/questions.js');
 var mongoose = require('mongoose');
 
 var port = process.env.PORT || 8080;
