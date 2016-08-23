@@ -7,8 +7,9 @@ var quizSchema = new Schema({
     required: true,
   },
   question: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Question'
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: 'Question'
+    type: String,
     required: true
   },
   tag: {
@@ -17,6 +18,10 @@ var quizSchema = new Schema({
   },
   created: {
     type: Date,
+    required: true,
+  },
+  updated: {
+    type Date,
     required: true,
   },
 });
