@@ -17,7 +17,9 @@ function signup(req, res){
         msg: 'error!'
       });
     }
+    var token = user.generateJwt();
     return res.status(200).json({
+      token: token,
       msg:'success!'
     });
   });
@@ -30,7 +32,9 @@ function login (req, res){
       })
     }
     if(user){
+      var token = user.generateJwt();
       return res.status(200).json({
+        token: token,
         msg: 'authentication success'
       })
     } else {
