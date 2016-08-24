@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var Quiz = require ('../models/quiz.js');
+var _ = require('lodash');
 
 router.get('/quizzes', getAllQuizzes)
 router.get('/quizzes/:quizId', getAQuiz);
+router.get('/quizzes/random/:number', getRandomNumberOfQuizzes);
+router.get('/quizzes/random/:number', getTheMostRecentNumberOfQuizzes);
 router.post('/quizzes', createQuiz);
 router.delete('/quizzes/:quizId', deleteQuiz);
 router.put('/quizzes/:quizId', updateQuiz);
@@ -37,6 +40,38 @@ function getAQuiz (req, res, next){
     }
   });
 };
+function getTheMostRecentNumberOfQuizzes(req, res, next){
+  Quiz.find({}, function(err, quizzes){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      var numberOfQuizzesToGet = req.params.number;
+      var quizzesOrderedByDate = _.orderby(quizzes, ['created'], ['asc']);
+      var firstNumberOfOrderedQuizzes = _.take(quizzesOrderedByDate, numberOfQuizzesToGet);
+      res.status(200).json({
+        quizzes: firstNumberOfOrderedQuizzes
+      });
+    }
+  });
+}
+function getRandomNumberOfQuizzes(req, res, next){
+  Quiz.find({}, function(err, quizzes){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      var numofQuizzesToGet = req.params.number;
+      var randomizedQuizzes = _.shuffle(quizzes);
+      var firstNumberOfRandomizedQuizzes = _.take(randomizedQuizzes, numofQuizzesToGet);
+      res.status(200).json({
+        quizzes: firstNumberOfRandomizedQuizzes
+      });
+    }
+  });
+}
 function createQuiz(req, res, next){
   var quiz = new Quiz({
     name: req.body.name,
@@ -57,14 +92,14 @@ function createQuiz(req, res, next){
   });
 };
 function deleteQuiz(req, res, next){
-  Quiz.findOneAndRemove({_id: req.params.quizId}, function(err, removedPost){
+  Quiz.findOneAndRemove({_id: req.params.quizId}, function(err, removedQuiz){
     if(err){
       res.status(500).json({
         msg: err
       });
     } else {
       res.status(200).json({
-        removedPost: removedPost
+        removedQuiz: removedQuiz
       });
     }
   });
