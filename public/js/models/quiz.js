@@ -8,7 +8,7 @@ var quizSchema = new Schema({
   },
   question: {
     type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Question'
+    ref: 'Question',
     required: true,
   },
   tag: {
