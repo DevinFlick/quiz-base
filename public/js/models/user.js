@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
+var secret = process.env.SECRET || require('../secret.js');
 
 var userSchema = new Schema ({
   username: {
@@ -37,7 +39,16 @@ userSchema.methods.validPassword = function(password){
                               .toString('hex');
   return this.hash === hash;
 };
-userSchema.methods.generateJwt = function(){}
+userSchema.methods.generateJwt = function(){
+  var expiration = new Date();
+  expiration.setDate(expiration.getDate() + 7);
+  return jwt.sign({
+    _id: this._id,
+    username: this.username,
+    email: this.email,
+    exp: parsseInt(expiration.getDate())
+  }, secret);
+};
 
 var User = mongoose.model('User', userSchema);
 module.exports = User;

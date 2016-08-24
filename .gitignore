@@ -2,3 +2,4 @@
 node_modules
 config.js
 user_sandbox.js
+secret.js
