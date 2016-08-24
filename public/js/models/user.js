@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
-var secret = process.env.SECRET || require('../secret.js');
+
+var secret = process.env.SECRET || require('../../../secret.js');
 
 var userSchema = new Schema ({
   username: {

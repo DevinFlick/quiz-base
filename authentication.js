@@ -11,7 +11,7 @@ function signup(req, res){
   var user = new User(req.body);
 
   user.setPassword(req.body.password);
-  user.save(fucntion(err){
+  user.save(function(err){
     if(err){
       return res.status(500).json({
         msg: 'error!'
@@ -29,7 +29,7 @@ function login (req, res){
   passport.authenticate('local', function(err, user, info){
     console.log('inside auth');
     if (err){
-      return res status(500).json({
+      return res.status(500).json({
         msg: 'authentication failed'
       })
     }

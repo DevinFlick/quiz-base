@@ -9,7 +9,7 @@ var quizRouter = require('./public/js/routes/quizzes.js');
 var questionRouter = require('./public/js/routes/questions.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
-require('./config/passport.js');
+require('./public/config/passport.js');
 
 var port = process.env.PORT || 8080;
 var mongoURI = process.env.MONGOURI || require('./config.js').mongoURI;
