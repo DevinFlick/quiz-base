@@ -28,7 +28,6 @@ var quizSchema = new Schema({
 
 //explore
 quizSchema.pre('findOneAndUpdate', function(){
-  console.log('updating!');
   this.update({}, {$set: {updated: new Date()}});
 });
 //explore

@@ -24,8 +24,18 @@ function getAllQuizzes (req, res, next){
   });
 };
 function getAQuiz (req, res, next){
-  console.log('getting a quiz');
-  next();
+  Quiz.findOne({_id: req.params.quizId}, function(err, foundQuiz){
+    console.log(foundQuiz);
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        quiz: foundQuiz
+      });
+    }
+  });
 };
 function createQuiz(req, res, next){
   var quiz = new Quiz({
@@ -47,10 +57,28 @@ function createQuiz(req, res, next){
   });
 };
 function deleteQuiz(req, res, next){
-  console.log('deleteing a Quiz');
-  next();
+  Quiz.findOneAndRemove({_id: req.params.quizId}, function(err, removedPost){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        removedPost: removedPost
+      });
+    }
+  });
 };
 function updateQuiz(req, res, next){
-  console.log('updating a quiz');
-  next();
+  Quiz.findOneAndUpdate({_id: req.params.quizId}, req.body, function(err, oldQuiz){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        oldQuiz: oldQuiz
+      });
+    }
+  });
 };

@@ -10,23 +10,11 @@ var questionSchema = new Schema({
     type: String,
     required: true,
   },
-  answer-one: {
-    type: String,
+  answers: {
+    type: [String],
     required: true,
   },
-  answer-two: {
-    type: String,
-    required: true,
-  },
-  answer-three: {
-    type: String,
-    required: true,
-  },
-  answer-four: {
-    type: String,
-    required: true,
-  },
-  answer-five: {
+  correctAnswer: {
     type: String,
     required: true,
   },
@@ -37,5 +25,9 @@ var questionSchema = new Schema({
 
 });
 
-var Question = mongoose.model('Post', postSchema);
+questionSchema.pre('findOneAndUpdate', function(){
+  this.update({},{ $set: {updated: new Date() } });
+});
+
+var Question = mongoose.model('Question', questionSchema);
 module.exports = Question;
