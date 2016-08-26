@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 require('./public/config/passport.js');
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 5000;
 var mongoURI = process.env.MONGOURI || require('./config.js').mongoURI;
 
 mongoose.connect(mongoURI);
