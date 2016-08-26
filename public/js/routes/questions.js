@@ -11,7 +11,7 @@ router.put('/questions/:questionId', updateQuestion);
 module.exports = router;
 
 function getQuestionsForAQuiz(req, res, next){
-  Question.find({_id: req.params.questionId}, function(err, questions){
+  Question.find({_id: req.params.quizId}, function(err, questions){
     if (err){
       res.status(500).json({
         msg: err
