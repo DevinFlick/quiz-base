@@ -5,6 +5,7 @@ var quizSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   tag: {
     type: String,
