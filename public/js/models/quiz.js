@@ -6,11 +6,6 @@ var quizSchema = new Schema({
     type: String,
     required: true,
   },
-  question: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Question',
-    required: true,
-  },
   tag: {
     type: String,
     required: false,

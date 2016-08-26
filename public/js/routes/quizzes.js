@@ -75,7 +75,6 @@ function getRandomNumberOfQuizzes(req, res, next){
 function createQuiz(req, res, next){
   var quiz = new Quiz({
     name: req.body.name,
-    question: req.body.question,
     created: new Date(),
     updated: new Date(),
   });
