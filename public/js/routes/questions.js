@@ -3,6 +3,7 @@ var router = express.Router();
 var Question = require('../models/question.js');
 
 router.get('/questions/:quizId', getQuestionsForAQuiz);
+router.get('/questions', getAllQuestions)
 router.post('/questions', createQuestion);
 router.delete('/questions/:questionId', deleteQuestion);
 router.put('questions/:questionId', updateQuestion);
@@ -25,6 +26,19 @@ function getQuestionsForAQuiz(req, res, next){
           msg: "can't find that!"
         });
       }
+    }
+  });
+};
+function getAllQuestions(req, res, next){
+  Question.find({}, function(err, foundQuestions){
+    if(err){
+      res.status(500).json({
+        msg: err
+      });
+    } else {
+      res.status(200).json({
+        questions: foundQuestions
+      });
     }
   });
 };
