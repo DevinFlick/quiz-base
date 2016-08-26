@@ -6,7 +6,7 @@ var _ = require('lodash');
 router.get('/quizzes', getAllQuizzes)
 router.get('/quizzes/:quizId', getAQuiz);
 router.get('/quizzes/random/:number', getRandomNumberOfQuizzes);
-router.get('/quizzes/random/:number', getTheMostRecentNumberOfQuizzes);
+router.get('/quizzes/recent/:number', getTheMostRecentNumberOfQuizzes);
 router.post('/quizzes', createQuiz);
 router.delete('/quizzes/:quizId', deleteQuiz);
 router.put('/quizzes/:quizId', updateQuiz);
