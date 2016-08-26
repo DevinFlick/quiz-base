@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 var Question = require('../models/question.js');
 
-router.get('/questions/:questionId', getQuestionsForAQuiz);
-router.get('/questions', getAllQuestions)
+router.get('/questions/:quizId', getQuestionsForAQuiz);
+router.get('/questions', getAllQuestions);
 router.post('/questions', createQuestion);
 router.delete('/questions/:questionId', deleteQuestion);
-router.put('questions/:questionId', updateQuestion);
+router.put('/questions/:questionId', updateQuestion);
 
 module.exports = router;
 
@@ -28,7 +28,7 @@ function getQuestionsForAQuiz(req, res, next){
       }
     }
   });
-};
+}
 function getAllQuestions(req, res, next){
   Question.find({}, function(err, foundQuestions){
     if(err){
@@ -41,7 +41,7 @@ function getAllQuestions(req, res, next){
       });
     }
   });
-};
+}
 function createQuestion(req, res, next){
   var question = new Question({
     quiz: req.body.quiz,
@@ -62,7 +62,7 @@ function createQuestion(req, res, next){
       });
     }
   });
-};
+}
 function deleteQuestion(req, res, next){
   Question.findOneAndRemove({_id: req.params.questionId}, function(err, deletedQuestion){
     if(err){
@@ -75,17 +75,22 @@ function deleteQuestion(req, res, next){
       });
     }
   });
-};
+}
+//error in updatequestion
 function updateQuestion(req, res, next){
-  Question.findOneAndUpdate({_id: req.params.questionId}, req.body, function(err, question){
+  Question.findOneAndUpdate({_id: req.params.questionId},
+                              req.body,
+                              function(err, oldQuestion){
+                                console.log('hey');
     if(err){
       res.status(500).json({
         msg: err
       });
     } else {
       res.status(200).json({
-        question: question
+        oldQuestion: oldQuestion
       });
     }
   });
-};
+  console.log('oldQuestion');
+}

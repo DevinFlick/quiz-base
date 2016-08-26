@@ -3,7 +3,7 @@ var router = express.Router();
 var Quiz = require ('../models/quiz.js');
 var _ = require('lodash');
 
-router.get('/quizzes', getAllQuizzes)
+router.get('/quizzes', getAllQuizzes);
 router.get('/quizzes/:quizId', getAQuiz);
 router.get('/quizzes/random/:number', getRandomNumberOfQuizzes);
 router.get('/quizzes/recent/:number', getTheMostRecentNumberOfQuizzes);
@@ -25,7 +25,7 @@ function getAllQuizzes (req, res, next){
       });
     }
   });
-};
+}
 function getAQuiz (req, res, next){
   Quiz.findOne({_id: req.params.quizId}, function(err, foundQuiz){
     console.log(foundQuiz);
@@ -39,7 +39,7 @@ function getAQuiz (req, res, next){
       });
     }
   });
-};
+}
 function getTheMostRecentNumberOfQuizzes(req, res, next){
   Quiz.find({}, function(err, quizzes){
     if(err){
@@ -89,7 +89,7 @@ function createQuiz(req, res, next){
       });
     }
   });
-};
+}
 function deleteQuiz(req, res, next){
   Quiz.findOneAndRemove({_id: req.params.quizId}, function(err, removedQuiz){
     if(err){
@@ -102,9 +102,11 @@ function deleteQuiz(req, res, next){
       });
     }
   });
-};
+}
 function updateQuiz(req, res, next){
-  Quiz.findOneAndUpdate({_id: req.params.quizId}, req.body, function(err, oldQuiz){
+  Quiz.findOneAndUpdate({_id: req.params.quizId},
+                          req.body,
+                          function(err, oldQuiz){
     if(err){
       res.status(500).json({
         msg: err
@@ -115,4 +117,4 @@ function updateQuiz(req, res, next){
       });
     }
   });
-};
+}

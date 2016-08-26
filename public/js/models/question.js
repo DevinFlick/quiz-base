@@ -26,7 +26,7 @@ var questionSchema = new Schema({
 });
 
 questionSchema.pre('findOneAndUpdate', function(){
-  this.update({},{ $set: {updated: new Date() } });
+  this.update({}, { $set: {updated: new Date() } });
 });
 
 var Question = mongoose.model('Question', questionSchema);
