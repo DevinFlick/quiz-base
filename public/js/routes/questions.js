@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Question = require('../models/question.js');
 
-router.get('/questions/:quizId', getQuestionsForAQuiz);
+router.get('/questions/:questionId', getQuestionsForAQuiz);
 router.get('/questions', getAllQuestions)
 router.post('/questions', createQuestion);
 router.delete('/questions/:questionId', deleteQuestion);
@@ -11,7 +11,7 @@ router.put('questions/:questionId', updateQuestion);
 module.exports = router;
 
 function getQuestionsForAQuiz(req, res, next){
-  Question.find({quiz: req.params.quizId}, function(err, questions){
+  Question.find({_id: req.params.questionId}, function(err, questions){
     if (err){
       res.status(500).json({
         msg: err
